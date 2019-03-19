@@ -11,11 +11,9 @@ class CharacterCreateForm(FlaskForm):
     city = SelectField('', choices=[('Эвендор', 'Эвендор'), ('Крагос', 'Крагос'), ('Серфилиус', 'Серфилиус'),
                                     ('Георам', 'Георам'), ('Каварна', 'Каварна'), ], validators=[DataRequired()])
     age = StringField('', validators=[DataRequired()])
-    info = StringField('')
-    ispublic = BooleanField('Сделать персонажа публичным')
+    info = TextAreaField('')
+    ispublic = BooleanField('')
     submit = SubmitField('Создать')
-
-
 
 
 class LoginForm(FlaskForm):

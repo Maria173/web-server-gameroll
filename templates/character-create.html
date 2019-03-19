@@ -102,8 +102,9 @@
             </div>
 
         <div class="form-group">
-            <h4>Выберите город:</h4>
+
             <label for="{{ form.city.id }}">{{ form.city.label }}</label>
+            <h4>Выберите город:</h4>
             {{ form.city(class_="form-control") }}
         </div>
 
@@ -116,10 +117,13 @@
         <div class="form-group">
             <h4>Дополнительное описание:</h4>
             <label for="{{ form.info.id }}">{{ form.info.label }}</label>
-                {{ form.info(size=132, maxlength=140) }}
+                {{ form.info(class_="form-control") }}
         </div>
+
         <div class="form-group">
+
             <label for="{{ form.ispublic.id }}">{{ form.ispublic.label }}</label>
+                <h4>Сделать пероснажа публичным?</h4>
                 {{ form.ispublic(class_="form-control") }}
         </div>
         {{ form.submit(class_="btn btn-primary") }}

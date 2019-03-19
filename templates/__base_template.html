@@ -14,11 +14,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a href="/" class="navbar-brand">Главная</a>
     <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a href="/characters" class="nav-link">Кабинет</a>
-            </li>
-        </ul>
+        <div class="navbar-nav">
+            <a href="/characters" class="nav-item nav-link">Кабинет</a>
+        </div>
     </div>
     {% if auth_user %}
     {{ auth_user.login }} (<a href="/logout">Выйти</a>)
