@@ -21,20 +21,20 @@ def init_route(app, db):
     @app.route('/')
     @app.route('/index')
     def index():
-        # if not auth.is_authorized():
-        return render_template(
-                    'index.html',
-                    title='Главная',
-                )
+        if not auth.is_authorized():
+            return render_template(
+                        'index.html',
+                        title='Главная',
+                        )
 
         # ВОЗВРАЩАТЬ ГЛАВНУЮ СТРАНИЦУ ЧЕРЕЗ НОВУЮ ФУНКЦИЮ И НОВЫЙ ШАБЛОН
 
-        # character_list = Character.query.filter_by(user_id=auth.get_user().id)
-        # return render_template(
-        #     'character-list.html',
-        #     title="Главная",
-        #     character_list=character_list
-        # )
+        character_list = Character.query.all()
+        return render_template(
+             'character-list.html',
+             title="Главная",
+             character_list=character_list
+        )
 
 
 
@@ -44,6 +44,7 @@ def init_route(app, db):
     @app.route('/install')
     def install():
         db.create_all()
+        User.add(username='admin', password='admin', admin=True)
         return render_template(
             'install-success.html',
             title="Главная"
@@ -82,7 +83,7 @@ def init_route(app, db):
             if user:
                 has_error = True
             else:
-                User.add(username=username, password=password)
+                User.add(username=username, password=password, admin=False)
                 auth.login(username, password)
                 return redirect('/')
         return render_template(
