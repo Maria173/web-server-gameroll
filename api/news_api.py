@@ -3,7 +3,7 @@ from flask_restful import reqparse
 from flask import jsonify
 from flask import abort
 import extra.auth as auth
-from models import News
+from models import Character
 
 news_parser = reqparse.RequestParser()
 news_parser.add_argument('title', required=True)

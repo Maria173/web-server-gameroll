@@ -21,10 +21,14 @@ class User(db.Model):
         db.session.commit()
 
 
-class News(db.Model):
+class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
     title = db.Column(db.String(80), unique=False, nullable=False)
-    content = db.Column(db.String(80), unique=False, nullable=True)  # пусть текст можно будет оставить пустым
+    city = db.Column(db.String(80), unique=False, nullable=True)  # пусть текст можно будет оставить пустым
+    age = db.Column(db.Integer, unique=False, nullable=True)
+    info = db.Column(db.String(1000), unique=False, nullable=True)
+    ispublic = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # user_id - вторичный ключ, который связывает 2 таблицы
     # Пользователь пишет Новость(их может быть несколько), Новость принадлежит Пользователю, свзяь Один-Ко-Многим
@@ -36,8 +40,8 @@ class News(db.Model):
         return '<News {} {} {}>'.format(self.id, self.title, self.user_id)
 
     @staticmethod
-    def add(title, content, user):
-        news = News(title=title, content=content, user=user)
+    def add(name, title, city, age, info, ispublic, user):
+        news = Character(name=name, title=title, city=city, age=age, info=info, ispublic=ispublic, user=user)
         db.session.add(news)
         db.session.commit()
         return news

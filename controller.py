@@ -6,7 +6,7 @@ import extra.auth as auth
 from api.v1 import init as init_api_v1
 from forms import *
 
-from models import User, News
+from models import User, Character
 
 
 def init_route(app, db):
@@ -21,17 +21,17 @@ def init_route(app, db):
     @app.route('/')
     @app.route('/index')
     def index():
-        if not auth.is_authorized():
-            return render_template(
+        # if not auth.is_authorized():
+        return render_template(
                 'index.html',
                 title='Главная',
             )
-        news_list = News.query.filter_by(user_id=auth.get_user().id)
-        return render_template(
-            'news-list.html',
-            title="Главная",
-            news_list=news_list
-        )
+        # news_list = Character.query.filter_by(user_id=auth.get_user().id)
+        # return render_template(
+        #     'news-list.html',
+        #     title="Главная",
+        #     news_list=news_list
+        # )
 
     @app.route('/install')
     def install():
@@ -88,7 +88,7 @@ def init_route(app, db):
     def news_list():
         if not auth.is_authorized():
             return redirect('/login')
-        news_list = News.query.filter_by(user_id=auth.get_user().id)
+        news_list = Character.query.filter_by(user_id=auth.get_user().id)
         return render_template(
             'news-list.html',
             title="Новости",
@@ -99,11 +99,15 @@ def init_route(app, db):
     def news_create_form():
         if not auth.is_authorized():
             return redirect('/login')
-        form = NewsCreateForm()
+        form = CharacterCreateForm()
         if form.validate_on_submit():
+            name = form.name.data
             title = form.title.data
-            content = form.content.data
-            News.add(title=title, content=content, user=auth.get_user())
+            city = form.city.data
+            age = form.age.data
+            info = form.info.data
+            ispublic = form.ispublic.data
+            Character.add(name=name, title=title, city=city, age=age, info=info, ispublic=ispublic, user=auth.get_user())
             return redirect('/')
         return render_template(
             'character-create.html',
@@ -115,7 +119,7 @@ def init_route(app, db):
     def news_view(id: int):
         if not auth.is_authorized():
             return redirect('/login')
-        news = News.query.filter_by(id=id).first()
+        news = Character.query.filter_by(id=id).first()
         if not news:
             abort(404)
         if news.user_id != auth.get_user().id:
@@ -123,7 +127,7 @@ def init_route(app, db):
         user = news.user
         return render_template(
             'news-view.html',
-            title='Новость - ' + news.title,
+            title='Персонаж - ' + news.title,
             news=news,
             user=user
         )
@@ -132,7 +136,7 @@ def init_route(app, db):
     def news_delete(id: int):
         if not auth.is_authorized():
             return redirect('/login')
-        news = News.query.filter_by(id=id).first()
+        news = Character.query.filter_by(id=id).first()
         if news.user_id != auth.get_user().id:
             abort(403)
         News.delete(news)

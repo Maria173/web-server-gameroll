@@ -3,15 +3,16 @@ from wtforms import StringField, SubmitField, TextAreaField, PasswordField, Bool
 from wtforms.validators import DataRequired
 
 
-class NewsCreateForm(FlaskForm):
+class CharacterCreateForm(FlaskForm):
     name = StringField('', validators=[DataRequired()])
     title = RadioField('', choices=[('Арбор', '-------- Арбор ----------'), ('Туг', '----------- Туг -----------'),
                                     ('Панголины', '------- Панголины ------'), ('Фодинис', '-------- Фодинис ---------'),
                                     ('Люди', '--------- Люди ----------')], validators=[DataRequired()])
-    content = SelectField('', choices=[('Эвендор', 'Эвендор'), ('Крагос', 'Крагос'), ('Серфилиус', 'Серфилиус'),
+    city = SelectField('', choices=[('Эвендор', 'Эвендор'), ('Крагос', 'Крагос'), ('Серфилиус', 'Серфилиус'),
                                     ('Георам', 'Георам'), ('Каварна', 'Каварна'), ], validators=[DataRequired()])
     age = StringField('', validators=[DataRequired()])
     info = StringField('')
+    ispublic = BooleanField('Сделать персонажа публичным')
     submit = SubmitField('Создать')
 
 
