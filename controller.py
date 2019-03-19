@@ -23,17 +23,17 @@ def init_route(app, db):
     def index():
         # if not auth.is_authorized():
         return render_template(
-                'index.html',
-                title='Главная',
-            )
+                    'index.html',
+                    title='Главная',
+                )
 
         # ВОЗВРАЩАТЬ ГЛАВНУЮ СТРАНИЦУ ЧЕРЕЗ НОВУЮ ФУНКЦИЮ И НОВЫЙ ШАБЛОН
 
-        # news_list = Character.query.filter_by(user_id=auth.get_user().id)
+        # character_list = Character.query.filter_by(user_id=auth.get_user().id)
         # return render_template(
         #     'character-list.html',
         #     title="Главная",
-        #     news_list=news_list
+        #     character_list=character_list
         # )
 
 
