@@ -32,19 +32,19 @@ class Character(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # user_id - вторичный ключ, который связывает 2 таблицы
     # Пользователь пишет Новость(их может быть несколько), Новость принадлежит Пользователю, свзяь Один-Ко-Многим
-    user = db.relationship('User', backref=db.backref('news_list', lazy=True))
+    user = db.relationship('User', backref=db.backref('character_list', lazy=True))
     # ссылка на модель (класс) выше
-    # для User возвращает список его новостей по .user_news
+    # для User возвращает список его новостей по .user_character
 
     def __repr__(self):
-        return '<News {} {} {}>'.format(self.id, self.title, self.user_id)
+        return '<Character {} {} {}>'.format(self.id, self.title, self.user_id)
 
     @staticmethod
     def add(name, title, city, age, info, ispublic, user):
-        news = Character(name=name, title=title, city=city, age=age, info=info, ispublic=ispublic, user=user)
-        db.session.add(news)
+        character = Character(name=name, title=title, city=city, age=age, info=info, ispublic=ispublic, user=user)
+        db.session.add(character)
         db.session.commit()
-        return news
+        return character
 
     @staticmethod
     def delete(obj):

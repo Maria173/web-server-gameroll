@@ -26,12 +26,20 @@ def init_route(app, db):
                 'index.html',
                 title='Главная',
             )
+
+        # ВОЗВРАЩАТЬ ГЛАВНУЮ СТРАНИЦУ ЧЕРЕЗ НОВУЮ ФУНКЦИЮ И НОВЫЙ ШАБЛОН
+
         # news_list = Character.query.filter_by(user_id=auth.get_user().id)
         # return render_template(
-        #     'news-list.html',
+        #     'character-list.html',
         #     title="Главная",
         #     news_list=news_list
         # )
+
+
+
+    # НУЖНО СДЕЛАТЬ ЕЩЕ ОДНУЮ ФУНКЦИЮ, КОТОРАЯ БУДЕТ ОТОБРАЖАТЬ ГАВНУЮ СТРАНИЦУ
+
 
     @app.route('/install')
     def install():
@@ -84,19 +92,19 @@ def init_route(app, db):
             has_error=has_error
         )
 
-    @app.route('/news', methods=['GET'])
-    def news_list():
+    @app.route('/characters', methods=['GET'])
+    def characters_list():
         if not auth.is_authorized():
             return redirect('/login')
-        news_list = Character.query.filter_by(user_id=auth.get_user().id)
+        character_list = Character.query.filter_by(user_id=auth.get_user().id)
         return render_template(
-            'news-list.html',
+            'character-list.html',
             title="Новости",
-            news_list=news_list
+            character_list=character_list
         )
 
-    @app.route('/news/create', methods=['GET', 'POST'])
-    def news_create_form():
+    @app.route('/character/create', methods=['GET', 'POST'])
+    def character_create_form():
         if not auth.is_authorized():
             return redirect('/login')
         form = CharacterCreateForm()
@@ -108,36 +116,36 @@ def init_route(app, db):
             info = form.info.data
             ispublic = form.ispublic.data
             Character.add(name=name, title=title, city=city, age=age, info=info, ispublic=ispublic, user=auth.get_user())
-            return redirect('/')
+            return redirect('/characters')
         return render_template(
             'character-create.html',
             title='Создать новость',
             form=form
         )
 
-    @app.route('/news/<int:id>')
-    def news_view(id: int):
+    @app.route('/characters/<int:id>')
+    def characters_view(id: int):
         if not auth.is_authorized():
             return redirect('/login')
-        news = Character.query.filter_by(id=id).first()
-        if not news:
+        character = Character.query.filter_by(id=id).first()
+        if not character:
             abort(404)
-        if news.user_id != auth.get_user().id:
+        if character.user_id != auth.get_user().id:
             abort(403)
-        user = news.user
+        user = character.user
         return render_template(
-            'news-view.html',
-            title='Персонаж - ' + news.title,
-            news=news,
+            'character-view.html',
+            title='Персонаж - ' + character.title,
+            character=character,
             user=user
         )
 
-    @app.route('/news/delete/<int:id>')
-    def news_delete(id: int):
+    @app.route('/character/delete/<int:id>')
+    def characters_delete(id: int):
         if not auth.is_authorized():
             return redirect('/login')
-        news = Character.query.filter_by(id=id).first()
-        if news.user_id != auth.get_user().id:
+        character = Character.query.filter_by(id=id).first()
+        if character.user_id != auth.get_user().id:
             abort(403)
-        News.delete(news)
-        return redirect('/news')
+        Character.delete(character)
+        return redirect('/characters')

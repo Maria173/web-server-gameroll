@@ -4,31 +4,31 @@
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row no-gutters">
 
-      {% if news.title == 'Арбор' %}
+      {% if character.title == 'Арбор' %}
     <div class="col-md-4" style="margin-top: 55px">
       <img src="/static/1.png" class="card-img" alt="..." >
     </div>
       {% endif %}
 
-      {% if news.title == 'Туг' %}
+      {% if character.title == 'Туг' %}
     <div class="col-md-4" style="margin-top: 55px">
       <img src="/static/2.png" class="card-img" alt="..." >
     </div>
       {% endif %}
 
-      {% if news.title == 'Панголины' %}
+      {% if character.title == 'Панголины' %}
     <div class="col-md-4" style="margin-top: 55px">
       <img src="/static/3.png" class="card-img" alt="..." >
     </div>
       {% endif %}
 
-      {% if news.title == 'Фодинис' %}
+      {% if character.title == 'Фодинис' %}
     <div class="col-md-4" style="margin-top: 55px">
       <img src="/static/4.png" class="card-img" alt="..." >
     </div>
       {% endif %}
 
-      {% if news.title == 'Люди' %}
+      {% if character.title == 'Люди' %}
     <div class="col-md-4" style="margin-top: 55px">
       <img src="/static/5.png" class="card-img" alt="..." >
     </div>
@@ -36,8 +36,8 @@
 
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title"  style="font-size: 18px">{{ news.title }}: {{ news.content }}</h5>
-          {% if news.title == 'Арбор' %}
+        <h5 class="card-title"  style="font-size: 18px">{{ character.title }}: {{ character.city }}</h5>
+          {% if character.title == 'Арбор' %}
         <p class="card-text" style="font-size: 10px">Раса лесных существ, живущих в чаще священного леса. Очень религиозны,
                 верят в тесную связь с древесными духами. Ни при каких обстоятельствах
                 не пускают в свои владения чужаков. Не стремятся расширить свои владения,
@@ -51,7 +51,7 @@
                 +15% к чистому запасу маны; темная магия расходует на 30% больше маны; не могут использовать древесину деревьев sacra.</p>
           {% endif %}
 
-          {% if news.title == 'Туг' %}
+          {% if character.title == 'Туг' %}
         <p class="card-text" style="font-size: 10px">Громилы, жители пустынь. Не очень умны, зато в силе и стойкости им нет равных.
             Многочисленные костные наросты используются как для защиты, так и для атаки. Живут большими ордами,
             часто совершают набеги на чужие земли с целью получить еду, оружие или драгоценности, которые можно
@@ -62,7 +62,7 @@
             не способны использовать инженерию и магию.</p>
           {% endif %}
 
-          {% if news.title == 'Панголины' %}
+          {% if character.title == 'Панголины' %}
         <p class="card-text" style="font-size: 10px">Раса развитых ящеров. Малочисленность, бедные ресурсами земли,
             высокая конкуренция с более сильными расами вынудили панголинов покинуть родные края ещё до описания лет.
             Ящеры беспрерывно путешествовали по всем доступным территориям, предлагая свои товары и знания, накопленные
@@ -74,7 +74,7 @@
             могут получить эффекты некоторых способностей за золото, даже не изучая этих способностей.</p>
           {% endif %}
 
-          {% if news.title == 'Фодинис' %}
+          {% if character.title == 'Фодинис' %}
         <p class="card-text" style="font-size: 10px">Трудолюбивый горный народ. Можно подумать, фодинис зародились
             в пещере да так и не выбрались оттуда до сих пор. Говорит ли это об отсталости расы? Нет, совсем наоборот,
             фодинис научились использовать те многочисленные ресурсы, которые подарили им родные подземелья, и
@@ -86,7 +86,7 @@
             +5% к скорости в темноте; -15% к защите; не способны использовать стихийную магию.</p>
           {% endif %}
 
-          {% if news.title == 'Люди' %}
+          {% if character.title == 'Люди' %}
         <p class="card-text" style="font-size: 10px">Все мы и так прекрасно представляем себе эту расу.
             Люди хотят денег, земель и власти. Но не стоит забывать и о таких высоких чертах их характера,
             как честь, отвага доблесть… Людские земли разбиты на княжества, которыми управляют князья;

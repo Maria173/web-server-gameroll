@@ -1,0 +1,25 @@
+{% extends "__base_template.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Мои персонажи</h5>
+        {% if character_list  %}
+        <ul class="card-text">
+            {% for character in character_list %}
+            <li><a href="/characters/{{ character.id }}">{{character.title}} </a>
+                {% if auth_user and auth_user.id == character.user_id %}
+                (<a href="/character/delete/{{ character.id }}">удалить</a>)
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        Персонажей пока нет
+        {% endif %}
+        {% if auth_user %}
+        <a href="/character/create" class="card-link">Создать</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
