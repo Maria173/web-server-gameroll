@@ -6,7 +6,7 @@ import extra.auth as auth
 from api.v1 import init as init_api_v1
 from forms import *
 
-from models import User, Character
+from models import User, Character, Post
 
 
 def init_route(app, db):
@@ -155,3 +155,20 @@ def init_route(app, db):
             abort(403)
         Character.delete(character)
         return redirect('/characters')
+
+    @app.route('sendmessage/<int:id>', methods=['GET', 'POST'])
+    def send_message(id: int):
+        if not auth.is_authorized():
+            return redirect('/login')
+        user = User.query.filter_by(id=id).first()
+        form = WriteMessageForm()
+        if form.validate_on_submit():
+            message = form.message.data
+            Post.add(from_who=auth.get_user().username, to=user.username, message=message, user=auth.get_user())
+            return redirect('/characters')
+        return render_template(
+            'message-write.html',
+            title='Написать сообщение',
+            form=form
+        )
+
