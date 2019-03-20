@@ -21,24 +21,29 @@ def init_route(app, db):
     @app.route('/')
     @app.route('/index')
     def index():
-        # if not auth.is_authorized():
+        if not auth.is_authorized():
+            return render_template(
+                'index.html',
+                title='Главная',
+            )
+        # ВОЗВРАЩАЕТ ГЛАВНУЮ СТРАНИЦУ ЧЕРЕЗ НОВУЮ ФУНКЦИЮ И НОВЫЙ ШАБЛОН
+        return redirect('/main')
+
+
+
+    # ФУНКЦИЯ, КОТОРАЯ ОТОБРАЖАЕТ ГАВНУЮ СТРАНИЦУ СО ВСЕМИ ПЕРСОНАЖАМИ
+    @app.route('/main', methods=['GET'])
+    def main_list():
+        if not auth.is_authorized():
+            return redirect('/login')
+        character_list = Character.query.filter_by(user_id=auth.get_user().id)
+
         return render_template(
-                    'index.html',
-                    title='Главная',
-                )
+            'main-list.html',
+            title='Пероснажи',
+            character_list=character_list
+        )
 
-        # ВОЗВРАЩАТЬ ГЛАВНУЮ СТРАНИЦУ ЧЕРЕЗ НОВУЮ ФУНКЦИЮ И НОВЫЙ ШАБЛОН
-
-        # character_list = Character.query.filter_by(user_id=auth.get_user().id)
-        # return render_template(
-        #     'character-list.html',
-        #     title="Главная",
-        #     character_list=character_list
-        # )
-
-
-
-    # НУЖНО СДЕЛАТЬ ЕЩЕ ОДНУЮ ФУНКЦИЮ, КОТОРАЯ БУДЕТ ОТОБРАЖАТЬ ГАВНУЮ СТРАНИЦУ
 
 
     @app.route('/install')
@@ -99,7 +104,7 @@ def init_route(app, db):
         character_list = Character.query.filter_by(user_id=auth.get_user().id)
         return render_template(
             'character-list.html',
-            title="Новости",
+            title="Пероснажи",
             character_list=character_list
         )
 
