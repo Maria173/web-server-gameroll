@@ -61,3 +61,31 @@ class Character(db.Model):
             'content': self.content,
             'user_id': self.user_id
         }
+
+
+#class Post(db.Model):
+    #id = db.Column(db.Integer, primary_key=True)
+    #from_who = db.Column(db.String(80), unique=False, nullable=False)
+    #to = db.Column(db.String(80), unique=False, nullable=False)
+    #message = db.Column(db.String(1000), unique=False, nullable=True)
+    #new = db.Column(db.Boolean, unique=False, nullable=False)
+    #user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # user_id - вторичный ключ, который связывает 2 таблицы
+    # Пользователь пишет Новость(их может быть несколько), Новость принадлежит Пользователю, свзяь Один-Ко-Многим
+    #user = db.relationship('User', backref=db.backref('messages', lazy=True))
+
+    #def __repr__(self):
+        #return '<Message {} {} {}>'.format(self.id, self.message, self.user_id)
+
+    #@staticmethod
+    #def add(from_who, to, message, user):
+        #message = Post(from_who=from_who, to=to, message=message, new=True, user=user)
+        #db.session.add(message)
+        #db.session.commit()
+        #return message
+
+    #@staticmethod
+    #def delete(obj):
+       # db.session.delete(obj)
+       # db.session.commit()
+

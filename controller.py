@@ -36,7 +36,7 @@ def init_route(app, db):
     def main_list():
         if not auth.is_authorized():
             return redirect('/login')
-        character_list = Character.query.filter_by(user_id=auth.get_user().id)
+        character_list = Character.query.all()
 
         return render_template(
             'main-list.html',
