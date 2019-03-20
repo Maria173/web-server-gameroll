@@ -27,3 +27,11 @@ def get_user():
 
 def is_authorized():
     return bool(session.get('user_id'))
+
+
+def is_admin():
+    user_id = session.get('user_id')
+    if not user_id:
+        return False
+    user = User.query.filter_by(id=user_id).first()
+    return user.admin

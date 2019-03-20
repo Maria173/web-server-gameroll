@@ -8,7 +8,7 @@
         <ul class="card-text">
             {% for character in character_list %}
             <li><a href="/characters/{{ character.id }}">{{character.title}} </a>
-                {% if auth_user and auth_user.id == character.user_id %}
+                {% if auth_user %}
                 (<a href="/character/delete/{{ character.id }}">удалить</a>)
                 {% endif %}
             </li>

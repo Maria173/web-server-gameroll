@@ -23,12 +23,12 @@ def init_route(app, db):
     def index():
         if not auth.is_authorized():
             return render_template(
+
                 'index.html',
                 title='Главная',
             )
         # ВОЗВРАЩАЕТ ГЛАВНУЮ СТРАНИЦУ ЧЕРЕЗ НОВУЮ ФУНКЦИЮ И НОВЫЙ ШАБЛОН
         return redirect('/main')
-
 
 
     # ФУНКЦИЯ, КОТОРАЯ ОТОБРАЖАЕТ ГАВНУЮ СТРАНИЦУ СО ВСЕМИ ПЕРСОНАЖАМИ
@@ -49,6 +49,7 @@ def init_route(app, db):
     @app.route('/install')
     def install():
         db.create_all()
+        User.add(username='admin', password='admin', admin=True)
         return render_template(
             'install-success.html',
             title="Главная"
@@ -87,7 +88,7 @@ def init_route(app, db):
             if user:
                 has_error = True
             else:
-                User.add(username=username, password=password)
+                User.add(username=username, password=password, admin=False)
                 auth.login(username, password)
                 return redirect('/')
         return render_template(

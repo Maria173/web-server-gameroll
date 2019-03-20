@@ -5,13 +5,14 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)  # будем хранить хэш пароля
+    admin = db.Column(db.Boolean, unique=False, nullable=False)
 
     def __repr__(self):
         return '<User {} {}>'.format(self.id, self.username)
 
     @staticmethod
-    def add(username, password):
-        user = User(username=username, password=password)
+    def add(username, password, admin):
+        user = User(username=username, password=password, admin=admin)
         db.session.add(user)
         db.session.commit()
 
