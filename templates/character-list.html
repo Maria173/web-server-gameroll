@@ -17,6 +17,27 @@
         {% else %}
         Персонажей пока нет
         {% endif %}
+        {% if auth_user %}
+        <a href="/character/create" class="card-link">Создать</a>
+        {% endif %}
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Мои сообщения</h5>
+        {% if messages  %}
+            <ul class="card-text">
+                {% for message in messages %}
+                <div>
+                    От: {{ message.from_who }}
+                </div>
+                <div>
+                    Сообщение: {{ message.message }}
+                </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
+

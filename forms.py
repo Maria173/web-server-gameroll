@@ -31,3 +31,4 @@ class UserCreateForm(FlaskForm):
 
 class WriteMessageForm(FlaskForm):
     message = TextAreaField('Текст сообщения', validators=[DataRequired()])
+    submit = SubmitField('Отправить')

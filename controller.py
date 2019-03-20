@@ -90,7 +90,7 @@ def init_route(app, db):
             else:
                 User.add(username=username, password=password, admin=False)
                 auth.login(username, password)
-                return redirect('/character/create')
+                return redirect('/')
         return render_template(
             'registration.html',
             title='Зарегистрироваться',
@@ -103,10 +103,14 @@ def init_route(app, db):
         if not auth.is_authorized():
             return redirect('/login')
         character_list = Character.query.filter_by(user_id=auth.get_user().id)
+        messages = Post.query.filter_by(to=auth.get_user().username)
+        print("All msg:", Post.query.all())
+        print("My messages:", messages)
         return render_template(
             'character-list.html',
             title="Персонажи",
-            character_list=character_list
+            character_list=character_list,
+            messages=messages,
         )
 
     @app.route('/character/create', methods=['GET', 'POST'])
@@ -156,13 +160,14 @@ def init_route(app, db):
         Character.delete(character)
         return redirect('/characters')
 
-    @app.route('sendmessage/<int:id>', methods=['GET', 'POST'])
-    def send_message(id: int):
+    @app.route('/sendmessage', methods=['GET', 'POST'])
+    def send_message():
         if not auth.is_authorized():
             return redirect('/login')
-        user = User.query.filter_by(id=id).first()
         form = WriteMessageForm()
         if form.validate_on_submit():
+            receiver_id = request.args.get('sel')
+            user = User.query.filter_by(id=receiver_id).first()
             message = form.message.data
             Post.add(from_who=auth.get_user().username, to=user.username, message=message, user=auth.get_user())
             return redirect('/characters')

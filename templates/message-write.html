@@ -1,0 +1,18 @@
+{% extends '__base_template.html' %}
+
+{% block content %}
+
+
+<form
+        method="post"
+        enctype="multipart/form-data"
+
+        class="card"
+>
+    {{ form.hidden_tag() }}
+    <label for="{{ form.message.id }}">{{ form.message.label }}</label>
+                {{ form.message }}
+    {{ form.submit(class_="btn btn-primary") }}
+
+</form>
+{% endblock %}
