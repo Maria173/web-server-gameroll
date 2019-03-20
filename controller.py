@@ -105,7 +105,7 @@ def init_route(app, db):
         character_list = Character.query.filter_by(user_id=auth.get_user().id)
         return render_template(
             'character-list.html',
-            title="Пероснажи",
+            title="Персонажи",
             character_list=character_list
         )
 
@@ -136,7 +136,7 @@ def init_route(app, db):
         character = Character.query.filter_by(id=id).first()
         if not character:
             abort(404)
-        if character.user_id != auth.get_user().id:
+        if character.user_id != auth.get_user().id and not character.ispublic:
             abort(403)
         user = character.user
         return render_template(

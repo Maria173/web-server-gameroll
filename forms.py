@@ -27,3 +27,7 @@ class UserCreateForm(FlaskForm):
     username = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     submit = SubmitField('Создать')
+
+
+class WriteMessageForm(FlaskForm):
+    message = TextAreaField('Текст сообщения', validators=[DataRequired()])
