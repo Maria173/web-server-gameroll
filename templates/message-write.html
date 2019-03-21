@@ -10,9 +10,14 @@
         class="card"
 >
     {{ form.hidden_tag() }}
-    <label for="{{ form.message.id }}">{{ form.message.label }}</label>
-                {{ form.message }}
-    {{ form.submit(class_="btn btn-primary") }}
+    <div class="card-body">
+        <div class="form-group">
+            <h4>Текст сообщения:</h4>
+            <label for="{{ form.message.id }}">{{ form.message.label }}</label>
+                        {{ form.message(class_="form-control") }}
+        </div>
+        {{ form.submit(class_="btn btn-light") }}
+    </div>
 
 </form>
 {% endblock %}

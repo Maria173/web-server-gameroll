@@ -170,7 +170,7 @@ def init_route(app, db):
             user = User.query.filter_by(id=receiver_id).first()
             message = form.message.data
             Post.add(from_who=auth.get_user().username, to=user.username, message=message, user=auth.get_user())
-            return redirect('/characters')
+            return redirect('/main')
         return render_template(
             'message-write.html',
             title='Написать сообщение',

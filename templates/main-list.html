@@ -4,14 +4,17 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Опубликованные персонажи:</h5>
+        <h3 class="card-title" style="margin: 0 0 25px 20px">Опубликованные персонажи</h3>
         {% if character_list %}
-        <ul class="card-text">
+        <ul class="card-text" style="list-style-image: url(/static/icon-public.png)">
             {% for character in character_list %}
                 {% if character.ispublic %}
-                    <li><a href="/characters/{{ character.id }}">{{character.name}}</a>
+                    <li style="padding: 10px 10px 10px 0; list-style-type: none"><a href="/characters/{{ character.id }}"
+                                                                      style="font-size: 20px; color: black; padding: 5px; text-decoration: none"
+                                                                      onmouseover="this.style.color='#888888';"
+                                                                      onmouseout="this.style.color='black';">{{character.name}}</a>
                         {% if auth_user.id != character.user_id %}
-                        <a class="btn btn-light" href="/sendmessage?sel={{ character.user_id }}" role="button">Написать сообщение</a>
+                        <a class="btn btn-light" href="/sendmessage?sel={{ character.user_id }}" role="button" style="margin-left: 10px">Написать сообщение</a>
                         {% endif %}
                     </li>
                 {% endif %}

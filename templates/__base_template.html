@@ -9,6 +9,7 @@
           crossorigin="anonymous"
     >
     <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,13 +20,19 @@
         </div>
     </div>
     {% if auth_user %}
-    {{ auth_user.login }} (<a href="/logout">Выйти</a>)
+    {{ auth_user.login }} <a href="/logout" style="font-size: 16px; color: black;"
+                              onmouseover="this.style.color='#888888';"
+                              onmouseout="this.style.color='black';">Выйти</a>
     {% else %}
     <div class="p-3">
-        <a href="/login">Войти</a>
+        <a href="/login" style="font-size: 16px; color: black;"
+           onmouseover="this.style.color='#888888';"
+           onmouseout="this.style.color='black';">Войти</a>
     </div>
     <div class="p-3">
-        <a href="/user/create">Зарегистрироваться</a>
+        <a href="/user/create" style="font-size: 16px; color: black;"
+           onmouseover="this.style.color='#888888';"
+           onmouseout="this.style.color='black';">Зарегистрироваться</a>
     </div>
     {% endif %}
 </nav>

@@ -3,36 +3,36 @@
 {% block content %}
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Мои персонажи</h5>
+        <h3 class="card-title" style="margin: 0 0 25px 20px">Мои персонажи</h3>
         {% if character_list  %}
-        <ul class="card-text">
+        <ul class="card-text" style="list-style-image: url(/static/icon-private.png)">
             {% for character in character_list %}
-            <li><a href="/characters/{{ character.id }}">{{character.name}} </a>
+            <li style="padding: 10px 10px 10px 0; list-style-type: none"><a href="/characters/{{ character.id }}" style="font-size: 20px; color: black; padding: 5px; text-decoration: none"
+                   onmouseover="this.style.color='#888888';"
+                   onmouseout="this.style.color='black';">{{character.name}}</a>
                 {% if auth_user %}
-                (<a href="/character/delete/{{ character.id }}">удалить</a>)
+                <a href="/character/delete/{{ character.id }}" class="badge badge-danger"
+                   style="margin-left: 10px; padding: 5px">Удалить</a>
                 {% endif %}
             </li>
             {% endfor %}
         </ul>
-        {% else %}
-        Персонажей пока нет
         {% endif %}
         {% if auth_user %}
-        <a href="/character/create" class="card-link">Создать</a>
+        <a href="/character/create" class="badge badge-secondary"
+        style="margin: 10px 0 0 20px; padding: 5px; font-size: 14px">Создать</a>
         {% endif %}
     </div>
 </div>
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Мои сообщения</h5>
+        <h3 class="card-title" style="margin: 0 0 25px 20px">Мои сообщения</h3>
         {% if messages  %}
             <ul class="card-text">
                 {% for message in messages %}
-                <div>
-                    От: {{ message.from_who }}
-                </div>
-                <div>
-                    Сообщение: {{ message.message }}
+                <div style="border: 2px solid #E6E6E6; padding: 10px; margin: 5px; border-radius: 5px">
+                    <p style="font-style: italic">От: {{ message.from_who }}</p>
+                    <p class="mb-0">Сообщение: {{ message.message }}</p>
                 </div>
                 {% endfor %}
             </ul>
