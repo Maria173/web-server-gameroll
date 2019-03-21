@@ -31,8 +31,6 @@ class Character(db.Model):
     info = db.Column(db.String(1000), unique=False, nullable=True)
     ispublic = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # user_id - вторичный ключ, который связывает 2 таблицы
-    # Пользователь пишет Новость(их может быть несколько), Новость принадлежит Пользователю, свзяь Один-Ко-Многим
     user = db.relationship('User', backref=db.backref('character_list', lazy=True))
     # ссылка на модель (класс) выше
     # для User возвращает список его новостей по .user_character
@@ -70,8 +68,6 @@ class Post(db.Model):
     message = db.Column(db.String(1000), unique=False, nullable=True)
     new = db.Column(db.Boolean, unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-     #user_id - вторичный ключ, который связывает 2 таблицы
-    # Пользователь пишет Новость(их может быть несколько), Новость принадлежит Пользователю, свзяь Один-Ко-Многим
     user = db.relationship('User', backref=db.backref('messages', lazy=True))
 
     def __repr__(self):

@@ -104,8 +104,6 @@ def init_route(app, db):
             return redirect('/login')
         character_list = Character.query.filter_by(user_id=auth.get_user().id)
         messages = Post.query.filter_by(to=auth.get_user().username)
-        print("All msg:", Post.query.all())
-        print("My messages:", messages)
         return render_template(
             'character-list.html',
             title="Персонажи",
