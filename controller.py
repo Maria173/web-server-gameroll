@@ -90,7 +90,7 @@ def init_route(app, db):
             else:
                 User.add(username=username, password=password, admin=False)
                 auth.login(username, password)
-                return redirect('/character/create')
+                return redirect('/main')
         return render_template(
             'registration.html',
             title='Зарегистрироваться',
