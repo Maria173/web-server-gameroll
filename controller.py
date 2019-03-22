@@ -40,7 +40,7 @@ def init_route(app, db):
 
         return render_template(
             'main-list.html',
-            title='Пероснажи',
+            title='Персонажи',
             character_list=character_list
         )
 

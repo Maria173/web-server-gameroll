@@ -5,51 +5,50 @@ from flask import abort
 import extra.auth as auth
 from models import Character
 
-news_parser = reqparse.RequestParser()
-news_parser.add_argument('title', required=True)
-news_parser.add_argument('name', required=True)
-news_parser.add_argument('city', required=True)
-news_parser.add_argument('age', required=True, type=int)
-news_parser.add_argument('info', required=True)
-news_parser.add_argument('ispublic', required=False, type=bool)
+characters_parser = reqparse.RequestParser()
+characters_parser.add_argument('title', required=True)
+characters_parser.add_argument('name', required=True)
+characters_parser.add_argument('city', required=True)
+characters_parser.add_argument('age', required=True, type=int)
+characters_parser.add_argument('info', required=True)
+characters_parser.add_argument('ispublic', required=False, type=bool)
 
 
-class NewsListApi(Resource):
+class CharactersListApi(Resource):
     def __init__(self, auth):
-        super(NewsListApi, self).__init__()
+        super(CharactersListApi, self).__init__()
         self._auth = auth
 
     def get(self):
-        news = Character.query.all()
-        return jsonify(news=[i.serialize for i in news])
+        characters = Character.query.all()
+        return jsonify(characters=[i.serialize for i in characters])
 
     def post(self):
         if not self._auth.is_authorized():
             abort(401)
-        args = news_parser.parse_args()
-        print(args)
-        news = Character.add(args['name'], args['title'], args['city'],
+        args = characters_parser.parse_args()
+        characters = Character.add(args['name'], args['title'], args['city'],
                              args['age'], args['info'], args['ispublic'], self._auth.get_user())
-        return jsonify(news.serialize)
+        return jsonify(characters.serialize)
 
 
-class NewsApi(Resource):
+class CharactersApi(Resource):
 
     def __init__(self, auth):
-        super(NewsApi, self).__init__()
+        super(CharactersApi, self).__init__()
         self._auth = auth
 
     def get(self, id):
-        news = Character.query.filter_by(id=id).first()
-        if not news:
+        characters = Character.query.filter_by(id=id).first()
+        if not characters:
             abort(404)
-        return jsonify(news.serialize)
+        return jsonify(characters.serialize)
 
     def delete(self, id):
         if not self._auth.is_authorized():
             abort(401)
-        news = Character.query.filter_by(id=id).first()
-        if news.user_id != self._auth.get_user().id:
+        characters = Character.query.filter_by(id=id).first()
+        if characters.user_id != self._auth.get_user().id:
             abort(403)
-        Character.delete(news)
+        Character.delete(characters)
         return jsonify({"deleted": True})
