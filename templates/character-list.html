@@ -32,7 +32,8 @@
                 {% for message in messages %}
                 <div style="border: 2px solid #E6E6E6; padding: 10px; margin: 5px; border-radius: 5px">
                     <p style="font-style: italic">От: {{ message.from_who }}</p>
-                    <p class="mb-0">Сообщение: {{ message.message }}</p>
+                    <p class="mb-0" style="max-width: 880px; word-wrap: break-word">Сообщение: {{ message.message }}</p>
+                    <a class="btn btn-light" href="/sendmessage?sel={{ message.user_id }}" role="button" style="margin: -55px 0 0 880px;">Ответить</a>
                 </div>
                 {% endfor %}
             </ul>
